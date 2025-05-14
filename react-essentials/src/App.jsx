@@ -2,32 +2,38 @@ import { useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import Header from './Header';
+import TabButton from './TabButton';
+import { EXAMPLES } from './topicData'
+
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [ selectedTopic, setSelectedTopic ] = useState('components');
+
+  function handleSelect(selectedBtn) {
+    setSelectedTopic(selectedBtn);
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+      <Header reactLogo={reactLogo} viteLogo={viteLogo} />
+      <table>
+        <tbody>
+          <tr>
+            <TabButton onSelect={() => handleSelect('components')}>Components</TabButton>
+            <TabButton onSelect={() => handleSelect('jsx')}>JSX</TabButton>
+            <TabButton onSelect={() => handleSelect('props')}>Props</TabButton>
+            <TabButton onSelect={() => handleSelect('state')}>test</TabButton>
+          </tr>
+        </tbody>
+      </table>
+      <div id="tab-content">
+        <h3>{ EXAMPLES[selectedTopic].title }</h3>
+        <p>{ EXAMPLES[selectedTopic].description }</p>
+        <pre>
+          <code>{ EXAMPLES[selectedTopic].code }</code>
+        </pre>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </>
   )
 }
