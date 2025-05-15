@@ -9,7 +9,18 @@ import { EXAMPLES } from './topicData'
 
 function App() {
   const [ selectedTopic, setSelectedTopic ] = useState('components');
-
+  
+  let tabContent = <p>Select a topic.</p>;
+  if(selectedTopic) {
+    tabContent = <>
+                  <h3>{ EXAMPLES[selectedTopic].title }</h3>
+                  <p>{ EXAMPLES[selectedTopic].description }</p>
+                  <pre>
+                    <code>{ EXAMPLES[selectedTopic].code }</code>
+                  </pre>
+                </> 
+  } 
+  
   function handleSelect(selectedBtn) {
     setSelectedTopic(selectedBtn);
   }
@@ -28,12 +39,8 @@ function App() {
         </tbody>
       </table>
       <div id="tab-content">
-        <h3>{ EXAMPLES[selectedTopic].title }</h3>
-        <p>{ EXAMPLES[selectedTopic].description }</p>
-        <pre>
-          <code>{ EXAMPLES[selectedTopic].code }</code>
-        </pre>
-      </div>
+        {tabContent}
+      </div>  
     </>
   )
 }
